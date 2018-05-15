@@ -16,4 +16,6 @@ public interface GameDAO extends DAO<Game, ObjectId> {
     public void addGame(Game game);
 
     public void deleteGameByName(String name);
+
+    public void deleteGameById(String id);
 }

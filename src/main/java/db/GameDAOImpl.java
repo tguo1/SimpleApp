@@ -29,4 +29,8 @@ public class GameDAOImpl extends BasicDAO<Game, ObjectId> implements GameDAO{
     public void deleteGameByName(String name) {
         this.deleteByQuery(createQuery().field("name").equalIgnoreCase(name));
     }
+
+    public void deleteGameById(String id) {
+        this.deleteByQuery(createQuery().field("id").equalIgnoreCase(id));
+    }
 }

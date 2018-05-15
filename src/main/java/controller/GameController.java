@@ -5,37 +5,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:63342")
 @Controller
 public class GameController {
     private MorphiaService ms;
     private GameDAO gameDAO;
-    private GameRepository gameRepository;
 
     public GameController() {
         ms = new MorphiaService();
         gameDAO = new GameDAOImpl(Game.class, ms.getDatastore());
-        gameRepository = new GameRepository();
     }
 
     @RequestMapping(value = "/games", produces = MediaType.APPLICATION_JSON_VALUE,  method = RequestMethod.GET)
-    public ResponseEntity<GameRepository> getAllGames() {
-        gameRepository.setGames(gameDAO.getAllGames());
-        return new ResponseEntity<GameRepository>(gameRepository, HttpStatus.OK);
+    public ResponseEntity getAllGames() {
+        List<Game> gameList = gameDAO.getAllGames();
+        return ResponseEntity.ok(gameList);
     }
 
     @RequestMapping(value = "/games/{tag}", produces = MediaType.APPLICATION_JSON_VALUE,  method = RequestMethod.GET)
-    public ResponseEntity<GameRepository> getGamesByTag(@PathVariable String tag) {
-        gameRepository.setGames(gameDAO.getGameByTag(tag.replace('_',' ')));
-        return new ResponseEntity<GameRepository>(gameRepository, HttpStatus.OK);
+    public ResponseEntity getGamesByTag(@PathVariable("tag") String tag) {
+        List<Game> gameList = gameDAO.getGameByTag(tag.replace('_',' '));
+        return ResponseEntity.ok(gameList);
     }
 
-    @RequestMapping(value = "/games", method = RequestMethod.POST)
-    public void addGame(Game game) {
+    @RequestMapping(value = "/games", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public void addGame(@RequestBody Game game) {
         gameDAO.addGame(game);
+    }
+    
+    @RequestMapping(value = "/games", method = RequestMethod.DELETE)
+    public void deleteGame(@RequestBody Game game) {
+        gameDAO.deleteGameByName(game.getName());
     }
 }

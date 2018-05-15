@@ -1,4 +1,4 @@
-table, th, td {
+#gameListTable, th, td {
     border: 1px solid black;
 }
 
@@ -6,8 +6,8 @@ th {
     text-align: left;
 }
 
-table {
-    border-spacing: 5px;
+#gameListTable {
+    border-spacing: 1px;
 }
 
 ul {
@@ -18,4 +18,11 @@ ul {
     margin-left: 0;
     margin-right: 0;
     padding-left: 0px;
+}
+
+#addError {
+    color: red;
+}
+#deleteError {
+    color: red;
 }
