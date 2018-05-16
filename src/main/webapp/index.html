@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <head>
     <meta charset="UTF-8">
@@ -8,53 +11,123 @@
 </head>
 <body>
     <div ng-app="gamesApp" ng-controller="gamesCtrl">
-        <h1>Games List</h1>
-        <p id="searchBar">Filter <input type="text" ng-model="searchName"></p>
+        <div class="alert alert-success fade in" id="successInput">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success! {{updateString}}</strong>
+        </div>
+        <div class="alert alert-danger fade in" id="failedInput">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Invalid Input!</strong>
+        </div>
+
+        <h1>My Games List</h1>
+        <p id="searchBar">Filter <input type="text" ng-model="searchName">
+            <button class="btn" data-toggle="modal" data-target="#addModal">Add Game</button>
+        </p>
         <br>
         <td>
-            <table id="gameListTable">
-                <tr>
-                    <th ng-click="orderByMe('name')">Name</th>
-                    <th ng-click="orderByMe('author')">Author</th>
-                    <th>Release Date</th>
-                    <th>Tags</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-                <tr ng-repeat="x in games | filter:searchName | orderBy:myOrderBy">
-                    <td>{{x.name}}</td>
-                    <td>{{x.author}}</td>
-                    <td>{{x.release_date}}</td>
-                    <td>
-                        <ul ng-repeat="y in x.tags">{{y}}</ul>
-                    </td>
-                    <td><button ng-click="editGame(x)">Edit</button></td>
-                    <td><button ng-click="deleteGame(x)">Delete</button></td>
-                </tr>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th ng-click="orderByMe('name')">Name</th>
+                        <th ng-click="orderByMe('author')">Author</th>
+                        <th ng-click="orderByMe('release_date')">Release Date</th>
+                        <th>Tags</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in games | filter:searchName | orderBy:myOrderBy">
+                        <td>{{x.name}}</td>
+                        <td>{{x.author}}</td>
+                        <td>{{x.release_date}}</td>
+                        <td>
+                            <ul ng-repeat="y in x.tags">{{y}}</ul>
+                        </td>
+                        <td><button class="btn" ng-click="editGame(x)" data-toggle="modal" data-target="#updateModal">Edit</button></td>
+                        <td><button class="btn" ng-click="deleteGame(x)">Delete</button></td>
+                    </tr>
+                </tbody>
             </table>
         </td>
         <br>
-        <h1>Add/Edit Game Form</h1>
-        <table>
-            <tr>
-                <td>Name </td>
-                <td><input ng-model="u_gameName"></td>
-            </tr>
-            <tr>
-                <td>Author </td>
-                <td><input ng-model="u_author"></td>
-            </tr>
-            <tr>
-                <td>Release Date </td>
-                <td><input ng-model="u_releaseDate"></td>
-            </tr>
-            <tr>
-                <td>Tags (comma separated) </td>
-                <td><input ng-model="u_tags"></td>
-            </tr>
-        </table>
-        <button ng-click="addGame()">Submit</button>
-        <label id="addError">{{aerror}}</label>
+
+        <!-- Add Game Modal -->
+        <div id="addModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Game Form</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Name </td>
+                                    <td><input ng-model="a_gameName"></td>
+                                </tr>
+                                <tr>
+                                    <td>Author </td>
+                                    <td><input ng-model="a_author"></td>
+                                </tr>
+                                <tr>
+                                    <td>Release Date </td>
+                                    <td><input ng-model="a_releaseDate"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tags (comma separated) </td>
+                                    <td><input ng-model="a_tags"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn" ng-click="addGame()">Submit</button>
+                        <span ng-class="{red: error == 'Yes', green: error == 'No'}">{{aerror}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Game Modal -->
+        <div id="updateModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Game Form</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Name </td>
+                                    <td><input ng-model="u_gameName"></td>
+                                </tr>
+                                <tr>
+                                    <td>Author </td>
+                                    <td><input ng-model="u_author"></td>
+                                </tr>
+                                <tr>
+                                    <td>Release Date </td>
+                                    <td><input ng-model="u_releaseDate"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tags (comma separated) </td>
+                                    <td><input ng-model="u_tags"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn" ng-click="updateGame()">Submit</button>
+                        <span ng-class="{red: error == 'Yes', green: error == 'No'}">{{uerror}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

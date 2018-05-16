@@ -1,28 +1,7 @@
-#gameListTable, th, td {
-    border: 1px solid black;
-}
-
-th {
-    text-align: left;
-}
-
-#gameListTable {
-    border-spacing: 1px;
-}
-
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0px;
-}
-
-#addError {
+.red {
     color: red;
 }
-#deleteError {
-    color: red;
+
+.green {
+    color: green;
 }
