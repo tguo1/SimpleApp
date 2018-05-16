@@ -2,7 +2,7 @@
 A simple app used to learn various parts of the web stack.
 
 Front End:
-Angular 6
+Angular 6, Bootstrap
 
 Back End:
 Java 8
