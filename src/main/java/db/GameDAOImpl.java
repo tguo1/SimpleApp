@@ -40,11 +40,12 @@ public class GameDAOImpl extends BasicDAO<Game, ObjectId> implements GameDAO{
         this.deleteByQuery(createQuery().field("id").equalIgnoreCase(id));
     }
 
-    public void updateGame(Game game) {
+        public void updateGame(Game game) {
         UpdateOperations<Game> ops = createUpdateOperations().set("name",game.getName())
                                                              .set("author",game.getAuthor())
                                                              .set("release_date",game.getRelease_date())
-                                                             .set("tags",game.getTags());
+                                                             .set("tags",game.getTags())
+                                                             .set("imgs",game.getImgs());
         update(createQuery().field("_id").equal(game.getId()), ops);
     }
 }

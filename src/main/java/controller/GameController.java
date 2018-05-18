@@ -33,19 +33,19 @@ public class GameController {
     }
 
     @RequestMapping(value = "/games", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public ResponseEntity<Game> addGame(@RequestBody Game game) {
+    public ResponseEntity addGame(@RequestBody Game game) {
         gameDAO.addGame(game);
         return getAllGames();
     }
     
     @RequestMapping(value = "/games", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
-    public ResponseEntity<Game>  deleteGame(@RequestBody Game game) {
+    public ResponseEntity  deleteGame(@RequestBody Game game) {
         gameDAO.deleteGameByName(game.getName());
         return getAllGames();
     }
 
     @RequestMapping(value = "/games", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
-    public ResponseEntity<Game>  updateGame(@RequestBody Game game) {
+    public ResponseEntity  updateGame(@RequestBody Game game) {
         gameDAO.updateGame(game);
         return getAllGames();
     }

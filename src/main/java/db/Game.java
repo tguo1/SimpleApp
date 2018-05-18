@@ -10,6 +10,7 @@ public class Game extends BaseEntity  {
     private String author;
     private String release_date;
     private List<String> tags;
+    private List<String> imgs;
 
     public String getName() {
         return this.name;
@@ -27,6 +28,8 @@ public class Game extends BaseEntity  {
         return this.tags;
     }
 
+    public List<String> getImgs() { return this.imgs; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -42,6 +45,8 @@ public class Game extends BaseEntity  {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
+    public void setImgs(List<String> imgs) { this.imgs = imgs; }
 
     public String toString() {
         StringBuilder tagString = new StringBuilder();

@@ -5,3 +5,22 @@
 .green {
     color: green;
 }
+
+.row {
+    background: #f8f9fa;
+    margin-top: 20px;
+}
+
+.col {
+    border: solid 1px #6c757d;
+    padding: 10px;
+}
+
+#myCarousel {
+    width: 300px;
+    margin:0 auto;
+}
+
+h3 {
+    color: black;
+}
