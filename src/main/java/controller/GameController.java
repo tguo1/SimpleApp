@@ -1,6 +1,7 @@
 package controller;
 
 import db.*;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:63342")
+@CrossOrigin
 @Controller
+@Api(value="Gameslist", description = "API to access games list")
 public class GameController {
     private MorphiaService ms;
     private GameDAO gameDAO;
